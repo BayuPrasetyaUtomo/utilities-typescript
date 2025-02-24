@@ -1,0 +1,16 @@
+{
+  "test": {
+    "include": [
+      "./__test__/image.test.ts"
+    ]
+  },
+  "tasks": {
+    "test-image": "deno test --allow-ffi -RN"
+  },
+  "imports": {
+    "@types/node": "npm:@types/node@^22.13.5",
+    "sharp": "npm:sharp@^0.33.5",
+    "@/": "./src/"
+  },
+  "nodeModulesDir": "auto"
+}
