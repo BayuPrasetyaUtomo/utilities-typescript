@@ -1,6 +1,7 @@
 import type { Image } from "@/types/index.ts";
 
 const images: Image[] = [
+  // Bright images
   {
     name: "People in Black Suit Standing on Wetland",
     source:
@@ -36,6 +37,43 @@ const images: Image[] = [
       "https://images.pexels.com/photos/1590549/pexels-photo-1590549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     dark: false,
     light: true,
+  },
+
+  // Dark images
+  {
+    name: "Close Up Photo of Black Sand",
+    source:
+      "https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    dark: true,
+    light: false,
+  },
+  {
+    name: "Collection of Delicate Feathers on Black Background",
+    source:
+      "https://images.pexels.com/photos/4004374/pexels-photo-4004374.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    dark: true,
+    light: false,
+  },
+  {
+    name: "Body of Water Across Bridge during Nighttime",
+    source:
+      "https://images.pexels.com/photos/2341830/pexels-photo-2341830.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    dark: true,
+    light: false,
+  },
+  {
+    name: "Green Leaves",
+    source:
+      "https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    dark: true,
+    light: false,
+  },
+    {
+    name: "Pink Flowers Photograph",
+    source:
+      "https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    dark: true,
+    light: false,
   },
 ];
 

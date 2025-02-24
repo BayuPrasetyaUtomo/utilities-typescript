@@ -6,6 +6,7 @@ import validateMimeType from "@/utilities/validateMimeType.ts";
 import images from "@/data/images.ts";
 import convertToBuffer from "@/utilities/convertToBuffer.ts";
 import { Buffer } from "node:buffer";
+import getIsDarkImage from "@/utilities/getIsDarkImage.ts";
 
 Deno.test({
   name: "convert remote image to buffer",
@@ -46,3 +47,52 @@ Deno.test({
   },
 });
 
+Deno.test({
+  name: "images brightness is suitable as dark background",
+  fn: async () => {
+    const results = await Promise.allSettled(
+      images.slice(5).map(async ({ source }) => {
+        const response = await fetch(source);
+
+        const isDarkImage = await getIsDarkImage(response);
+
+        return isDarkImage;
+      }),
+    );
+
+    let valid = 0;
+    results.map((result) => {
+      if (result.status === "fulfilled") {
+        if (result.value === true) {
+          valid++;
+        }
+      }
+    });
+    assertEquals(valid, 5);
+  },
+});
+
+Deno.test({
+  name: "images brightness is NOT suitable as dark background",
+  fn: async () => {
+    const results = await Promise.allSettled(
+      images.slice(0, 5).map(async ({ source }) => {
+        const response = await fetch(source);
+
+        const isDarkImage = await getIsDarkImage(response);
+
+        return isDarkImage;
+      }),
+    );
+
+    let invalid = 0;
+    results.map((result) => {
+      if (result.status === "fulfilled") {
+        if (result.value === false) {
+          invalid++;
+        }
+      }
+    });
+    assertEquals(invalid, 5);
+  },
+});
