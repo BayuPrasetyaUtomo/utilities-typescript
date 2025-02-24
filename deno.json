@@ -1,11 +1,13 @@
 {
   "test": {
     "include": [
-      "./__test__/image.test.ts"
+      "./__test__/image.test.ts",
+      "./__test__/video.test.ts"
     ]
   },
   "tasks": {
-    "test-image": "deno test --allow-ffi -RN"
+    "test-image": "deno test --allow-ffi -RN ./__test__/image.test.ts",
+    "test-video": "deno test --allow-ffi -RN ./__test__/video.test.ts"
   },
   "imports": {
     "@types/node": "npm:@types/node@^22.13.5",

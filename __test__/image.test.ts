@@ -4,15 +4,28 @@ import getBrightness from "@/utilities/getBrightness.ts";
 import getMimeType from "@/utilities/getMimeType.ts";
 import validateMimeType from "@/utilities/validateMimeType.ts";
 import images from "@/data/images.ts";
-import videos from "@/data/videos.ts";
+import convertToBuffer from "@/utilities/convertToBuffer.ts";
+import { Buffer } from "node:buffer";
 
 Deno.test({
-  name: "valid brightness",
+  name: "convert remote image to buffer",
+  fn: async () => {
+    const response = await fetch(images[0].source);
+
+    const buffer = await convertToBuffer(response);
+
+    assert(buffer instanceof Buffer);
+  },
+});
+
+Deno.test({
+  name: "get image brightness value",
   fn: async () => {
     const response = await fetch(images[0].source);
 
     const brightness = await getBrightness(response);
 
+    assertExists(brightness);
     assertEquals(typeof brightness === "number", true);
   },
 });
@@ -22,8 +35,9 @@ Deno.test({
   fn: async () => {
     const response = await fetch(images[0].source);
 
-    const mimetype = await getMimeType(response);
+    const mimetype = getMimeType(response);
 
+    // the mimetype should start with image
     const validImageMimeType = validateMimeType(mimetype);
 
     await response.body?.cancel();
@@ -32,17 +46,3 @@ Deno.test({
   },
 });
 
-Deno.test({
-  name: "validate video mimetype",
-  fn: async () => {
-    const response = await fetch(videos[0].source);
-
-    const mimetype = await getMimeType(response);
-
-    const validImageMimeType = validateMimeType(mimetype);
-
-    await response.body?.cancel();
-
-    assertEquals(validImageMimeType, false);
-  },
-});
